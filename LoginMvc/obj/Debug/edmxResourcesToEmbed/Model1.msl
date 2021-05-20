@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LoginMVCModelStoreContainer" CdmEntityContainer="LoginMVCEntities1">
+    <EntitySetMapping Name="accounts">
+      <EntityTypeMapping TypeName="LoginMVCModel.account">
+        <MappingFragment StoreEntitySet="account">
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="LoginMVCModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="addresse" ColumnName="addresse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

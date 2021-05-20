@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "addProduct";
+    Layout = "~/Views/addmemberform.cshtml";
+}
+
+
+
+<div class="container">
+    <form action="add" method="post">
+        <div class="form-group">
+            <label for="productName">Product Name:</label>
+            <input type="text" class="form-control" id="productName" placeholder="Product Name" name="productName">
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" class="form-control" id="price" placeholder="Price" name="price">
+        </div>
+        <div class="form-group">
+            <label for="count">Count:</label>
+            <input type="number" class="form-control" id="count" placeholder="Count" name="count">
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+
+
+    </form>
+    <a href="~/showmember/Login">Back To List</a>
+
+</div>

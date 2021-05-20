@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LoginMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LoginMVC.dbo.account' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="email" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="email" Type="nchar" MaxLength="255" Nullable="false" />
+    <Property Name="Password" Type="nchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'LoginMVC.dbo.Person' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="addresse" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="addresse" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="LoginMVCModelStoreContainer">
+    <EntitySet Name="account" EntityType="Self.account" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[account].[email] AS [email], 
+[account].[Password] AS [Password]
+FROM [dbo].[account] AS [account]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Person" EntityType="Self.Person" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Person].[id] AS [id], 
+[Person].[name] AS [name], 
+[Person].[addresse] AS [addresse]
+FROM [dbo].[Person] AS [Person]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
