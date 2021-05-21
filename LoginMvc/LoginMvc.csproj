@@ -94,6 +94,60 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\animate.css" />
+    <Content Include="assets\css\bootsnav.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\datepicker.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\hover-min.css" />
+    <Content Include="assets\css\jquery-ui.min.css" />
+    <Content Include="assets\css\owl.carousel.min.css" />
+    <Content Include="assets\css\owl.theme.default.min.css" />
+    <Content Include="assets\css\responsive.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\style2.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\images\blog\b1.jpg" />
+    <Content Include="assets\images\blog\b2.jpg" />
+    <Content Include="assets\images\blog\b3.jpg" />
+    <Content Include="assets\images\client\testimonial1.jpg" />
+    <Content Include="assets\images\client\testimonial2.jpg" />
+    <Content Include="assets\images\gallary\g1.jpg" />
+    <Content Include="assets\images\gallary\g2.jpg" />
+    <Content Include="assets\images\gallary\g3.jpg" />
+    <Content Include="assets\images\gallary\g4.jpg" />
+    <Content Include="assets\images\gallary\g5.jpg" />
+    <Content Include="assets\images\gallary\g6.jpg" />
+    <Content Include="assets\images\home\banner.jpg" />
+    <Content Include="assets\images\home\fastive-image.jpg" />
+    <Content Include="assets\images\home\offer-timer.jpg" />
+    <Content Include="assets\images\home\subscribe-banner.jpg" />
+    <Content Include="assets\images\offer\offer-banner.jpg" />
+    <Content Include="assets\images\offer\offer-shape.png" />
+    <Content Include="assets\images\packages\p1.jpg" />
+    <Content Include="assets\images\packages\p2.jpg" />
+    <Content Include="assets\images\packages\p3.jpg" />
+    <Content Include="assets\images\packages\p4.jpg" />
+    <Content Include="assets\images\packages\p5.jpg" />
+    <Content Include="assets\images\packages\p6.jpg" />
+    <Content Include="assets\images\service\s1.jpg" />
+    <Content Include="assets\images\service\s1.png" />
+    <Content Include="assets\images\service\s2.png" />
+    <Content Include="assets\images\service\s3.png" />
+    <Content Include="assets\js\bootsnav.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\custom.js" />
+    <Content Include="assets\js\datepicker.js" />
+    <Content Include="assets\js\jquery-ui.min.js" />
+    <Content Include="assets\js\jquery.counterup.min.js" />
+    <Content Include="assets\js\jquery.filterizr.min.js" />
+    <Content Include="assets\js\jquery.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\jquery.sticky.js" />
+    <Content Include="assets\js\owl.carousel.min.js" />
+    <Content Include="assets\js\waypoints.min.js" />
+    <Content Include="assets\logo\favicon.png" />
     <Content Include="Global.asax" />
     <Content Include="styles\StyleSheet1.css" />
     <Content Include="Web.config" />
@@ -102,7 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\addmemberController.cs" />
-    <Compile Include="Controllers\showmemberController.cs" />
+    <Compile Include="Controllers\AdminDashbordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -112,15 +166,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="packages.config" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\fail.cshtml" />
     <Content Include="Views\Create\Index.cshtml" />
     <Content Include="Views\go.cshtml" />
-    <Content Include="Views\showmember\Login.cshtml" />
     <Content Include="Views\addmember\addProduct.cshtml" />
     <Content Include="Views\addmemberform.cshtml" />
+    <Content Include="Views\AdminDashbord\ShowAdminDashbord.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

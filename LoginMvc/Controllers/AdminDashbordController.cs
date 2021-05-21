@@ -11,7 +11,7 @@ namespace LoginMvc.Controllers
 {
    
 
-    public class showmemberController : Controller
+    public class AdminDashbordController : Controller
     {
         SqlConnection sqlConnection = new SqlConnection();
         SqlCommand sqlCommand = new SqlCommand();
@@ -24,7 +24,7 @@ namespace LoginMvc.Controllers
         }
         // GET: Account
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult ShowAdminDashbord()
         {
             ConnsectionString();
             String sql = "SELECT * FROM Product";
