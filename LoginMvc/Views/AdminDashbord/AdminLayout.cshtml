@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+
+    <link rel="stylesheet" href="~/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/css/fullcalendar.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/tooplate.css">
+</head>
+<body id="reportsPage">
+    <div>
+        @RenderBody()
+    </div>
+    
+
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/moment.min.js"></script>
+    <script src="~/js/utils.js"></script>
+    <script src="~/js/Chart.min.js"></script>
+    <script src="~/js/fullcalendar.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/tooplate-scripts.js"></script>
+    <script>
+    let ctxLine,
+            ctxBar,
+            ctxPie,
+            optionsLine,
+            optionsBar,
+            optionsPie,
+            configLine,
+            configBar,
+            configPie,
+            lineChart;
+        barChart, pieChart;
+        $(function () {
+            updateChartOptions();
+            drawLineChart(); // Line Chart
+            drawBarChart(); // Bar Chart
+            drawPieChart(); // Pie Chart
+            drawCalendar(); // Calendar
+
+            $(window).resize(function () {
+                updateChartOptions();
+                updateLineChart();
+                updateBarChart();
+                reloadPage();
+            });
+        })</script>
+</body>
+</html>

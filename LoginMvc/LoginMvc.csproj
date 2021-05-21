@@ -148,9 +148,53 @@
     <Content Include="assets\js\owl.carousel.min.js" />
     <Content Include="assets\js\waypoints.min.js" />
     <Content Include="assets\logo\favicon.png" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\fontawesome.min.css" />
+    <Content Include="css\fullcalendar.min.css" />
+    <Content Include="css\tooplate.css" />
     <Content Include="Global.asax" />
+    <Content Include="img\dash-bg-01.jpg" />
+    <Content Include="img\dash-bg-02.jpg" />
+    <Content Include="img\dash-bg-03.jpg" />
+    <Content Include="img\product-image.jpg" />
+    <Content Include="img\profile-image.png" />
+    <Content Include="jquery-ui-datepicker\AUTHORS.txt" />
+    <Content Include="jquery-ui-datepicker\external\jquery\jquery.js" />
+    <Content Include="jquery-ui-datepicker\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="jquery-ui-datepicker\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="jquery-ui-datepicker\index.html" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.css" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.js" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.min.css" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.min.js" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.structure.css" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.structure.min.css" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.theme.css" />
+    <Content Include="jquery-ui-datepicker\jquery-ui.theme.min.css" />
+    <Content Include="jquery-ui-datepicker\LICENSE.txt" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\Chart.min.js" />
+    <Content Include="js\fullcalendar.min.js" />
+    <Content Include="js\jquery-3.3.1.min.js" />
+    <Content Include="js\moment.min.js" />
+    <Content Include="js\tooplate-scripts.js" />
+    <Content Include="js\utils.js" />
     <Content Include="styles\StyleSheet1.css" />
     <Content Include="Web.config" />
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -175,6 +219,7 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="jquery-ui-datepicker\package.json" />
     <None Include="packages.config" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -184,12 +229,27 @@
     <Content Include="Views\addmember\addProduct.cshtml" />
     <Content Include="Views\addmemberform.cshtml" />
     <Content Include="Views\AdminDashbord\ShowAdminDashbord.cshtml" />
+    <Content Include="Views\AdminDashbord\AdminLayout.cshtml" />
+    <Content Include="Views\AdminDashbord\AddUser.cshtml" />
+    <Content Include="Views\AdminDashbord\ViewAllUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

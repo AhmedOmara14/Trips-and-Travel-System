@@ -7,7 +7,7 @@ namespace LoginMvc.Models
 {
     public partial class Account
     {
-        public String id { get; set; }
+        public int id { get; set; }
         public String firstname { get; set; }
         public String lastname { get; set; }
         public String email { get; set; }
@@ -15,7 +15,6 @@ namespace LoginMvc.Models
         public String phone { get; set; }
         public String userrole { get; set; }
         public String image { get; set; }
-
 
     }
 }

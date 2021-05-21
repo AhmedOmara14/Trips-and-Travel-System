@@ -1,7 +1,7 @@
-﻿@model List<LoginMvc.Models.Product>
+﻿@model List<LoginMvc.Models.Account>
 
 @{
-    ViewBag.Title = "ShowAdminDashbord";
+    ViewBag.Title = "ViewAllUser";
     Layout = "~/Views/AdminDashbord/AdminLayout.cshtml";
 }
 
@@ -43,7 +43,7 @@
                                     <a class="dropdown-item" href="#">Under Revision Posts</a>
                                 </div>
                             </li>
-                           
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                    aria-expanded="false">
@@ -69,39 +69,40 @@
         </div>
 
         <!-- row -->
-        
+
+
+        <table class="table table-light">
+
+            <tr>
+                <th>User Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+
+
+            </tr>
+            @foreach (var acount in Model)
+            {
+                <tr>
+                    <td>@acount.id</td>
+                    <td>@acount.firstname</td>
+                    <td>@acount.lastname</td>
+                    <td>@acount.email</td>
+                    <td>@acount.phone</td>
+                    <td>@acount.userrole</td>
+                    <td class="center  sorting_1">
+                        <a href="@Url.Action("Delete", new { id = @acount.id })">Delete</a>
+
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <a href="~/addmember/addProduct">Add Product</a>
+
     </div>
 </div>
 
-
-<div class="container">
-
-
-   @* <table class="table table-striped">
-        <tr>
-            <th>Product Id</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Count</th>
-
-        </tr>
-
-        @foreach (var acount in Model)
-        {
-            <tr>
-                <td>@acount.productId</td>
-                <td>@acount.productName</td>
-                <td>@acount.Price</td>
-                <td>@acount.count</td>
-                <td class="center  sorting_1">
-                    <a href="@Url.Action("Delete", new { id = @acount.productId })">Delete</a>
-                    <a href="@Url.Action("Delete", new { id = @acount.productId })">Delete</a>
-
-                </td>
-            </tr>
-        }
-    </table>
-*@
-    <a href="~/addmember/addProduct">Add Product</a>
-</div>
 
