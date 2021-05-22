@@ -148,6 +148,7 @@
     <Content Include="assets\js\owl.carousel.min.js" />
     <Content Include="assets\js\waypoints.min.js" />
     <Content Include="assets\logo\favicon.png" />
+    <Content Include="Content\Images\1621370487951.jpg" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\fontawesome.min.css" />
     <Content Include="css\fullcalendar.min.css" />
@@ -206,6 +207,7 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\tripposts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,12 +228,14 @@
     <Content Include="Views\Account\fail.cshtml" />
     <Content Include="Views\Create\Index.cshtml" />
     <Content Include="Views\go.cshtml" />
-    <Content Include="Views\addmember\addProduct.cshtml" />
     <Content Include="Views\addmemberform.cshtml" />
     <Content Include="Views\AdminDashbord\ShowAdminDashbord.cshtml" />
     <Content Include="Views\AdminDashbord\AdminLayout.cshtml" />
     <Content Include="Views\AdminDashbord\AddUser.cshtml" />
     <Content Include="Views\AdminDashbord\ViewAllUser.cshtml" />
+    <Content Include="Views\AdminDashbord\AddPosts.cshtml" />
+    <Content Include="Views\AdminDashbord\ViewAllPosts.cshtml" />
+    <Content Include="Views\AdminDashbord\reviewPosts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

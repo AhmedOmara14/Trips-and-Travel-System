@@ -34,19 +34,20 @@ namespace LoginMvc.Controllers
             ConnsectionString();
             sqlConnection.Open();
             sqlCommand.Connection = sqlConnection;
-            sqlCommand.CommandText = 
-                "SELECT * FROM Account WHERE email='"+account.email+
-                "'and Password='"+account.Password+"'";
+            sqlCommand.CommandText =
+                "SELECT * FROM Account WHERE email LIKE'" + account.email+
+                "'and password LIKE '"+account.password+"'";
             
             dr = sqlCommand.ExecuteReader();
 
 
-
+           
             if (dr.Read())
             {
                 Debug.WriteLine("user role2 : " + dr["userrole"].ToString());
                 String val = dr["userrole"].ToString();
-           
+
+
                 if (String.Equals(val, "admin"))
                 {
                     return Redirect("~/AdminDashbord/ShowAdminDashbord");

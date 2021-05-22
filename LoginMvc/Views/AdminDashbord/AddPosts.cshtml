@@ -1,0 +1,199 @@
+﻿@model LoginMvc.Models.tripposts
+
+@{
+    ViewBag.Title = "AddPosts";
+    Layout = "~/Views/AdminDashbord/AdminLayout.cshtml";
+}
+
+<body class="bg02">
+    <div class="container">
+        <div class="" id="home">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                            <a class="navbar-brand" href="#">
+                                <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                                <h1 class="tm-site-title mb-0">Dashboard</h1>
+                            </a>
+                            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mx-auto">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            Control Users
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="AddUser">Add User</a>
+                                            <a class="dropdown-item" href="ViewAllUser">View All Users</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            Control Posts
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="AddPosts">Add Post</a>
+                                            <a class="dropdown-item" href="ViewAllPosts">View All Posts</a>
+                                            <a class="dropdown-item" href="reviewPosts">Under Revision Posts</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            Settings
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">Profile</a>
+                                            <a class="dropdown-item" href="#">Update Profile</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex" href="login.html">
+                                            <i class="far fa-user mr-2 tm-logout-icon"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row tm-mt-big">
+            <div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
+                <div class="bg-white tm-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2 class="tm-block-title d-inline-block">Add Post Of Trip</h2>
+                        </div>
+                    </div>
+                    <div class="row mt-4 tm-edit-product-row">
+                        <div class="col-xl-7 col-lg-7 col-md-12">
+                            @*
+        @using (Html.BeginForm("AddUser", "AdminDashbord", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "password-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="file" name="doc" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                        }*@
+                            
+                            @using (Html.BeginForm("AddPosts", "AdminDashbord", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                        @Html.AntiForgeryToken()
+                                        <form class="tm-edit-product-form">
+                                            <div class="input-group mb-3">
+                                                <label for="agencyname" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                    Agency Name
+
+                                                </label>
+                                                <input id="agencyname" name="agencyname" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <label for="triptitle" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                    Trip Title
+                                                </label>
+                                                <input id="triptitle" name="triptitle" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <label for="tripdesctiption" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                    Trip Description
+                                                </label>
+                                                <textarea  id="tripdesctiption" name="tripdesctiption" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"></textarea>
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <label for="tripdate" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                    Trip Date
+                                                </label>
+                                                <input class="form-control" type="datetime-local" name="tripdate" id="tripdate">
+
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <label for="tripdestination" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                    Trip Destination
+                                                </label>
+                                                <input id="tripdestination" name="tripdestination" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="input-group mb-xl-3">
+                                                    @Html.LabelFor(model => model.tripimage, htmlAttributes: new { @class = "control-label col-md" })
+
+                                                    <input type="file" name="doc" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Create" class="btn btn-default" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                        }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
