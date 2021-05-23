@@ -1,8 +1,10 @@
 ﻿@model LoginMvc.Models.Account
+  
 
-
-@{ ViewBag.Title = "AddUser";
-                Layout = "~/Views/AdminDashbord/AdminLayout.cshtml"; }
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/AdminDashbord/AdminLayout.cshtml";
+}
 
 <body class="bg02">
     <div class="container">
@@ -76,81 +78,78 @@
                 <div class="bg-white tm-block">
                     <div class="row">
                         <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">Add User</h2>
+                            <h2 class="tm-block-title d-inline-block">Update Profile</h2>
                         </div>
                     </div>
                     <div class="row mt-4 tm-edit-product-row">
                         <div class="col-xl-7 col-lg-7 col-md-12">
-                           
-
-                            @using (Html.BeginForm("AddUser", "AdminDashbord", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("UpdatePro", "AdminDashbord", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
-                                @Html.AntiForgeryToken()
-                                <form class="tm-edit-product-form">
-                                    <div class="input-group mb-3">
-                                        <label for="firstname" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                                            First Name
-
-                                        </label>
-                                        <input id="firstname" name="firstname" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <label for="lastname" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                                            Last Name
-                                        </label>
-                                        <input id="lastname" name="lastname" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <label for="password" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                                            Password
-                                        </label>
-                                        <input id="password" name="password" type="password" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <label for="email" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                                            E-mail
-                                        </label>
-                                        <input id="email" name="email" type="email" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <label for="phone" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                                            Phone
-                                        </label>
-                                        <input id="phone" name="phone" type="number" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
-                                    </div>
-
-
-                                    <div class="input-group mb-3">
-
-                                        <label for="userrole" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">User Role</label>
-                                        <select class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7" id="userrole" name="userrole" >
-                                            <option selected>Select one</option>
-                                            <option value="admin">admin</option>
-                                            <option value="agency">agency</option>
-                                            <option value="traveller">traveller</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
+                                var acc = Model;
+                                    @Html.AntiForgeryToken()
+                                    <form class="tm-edit-product-form">
                                         <div class="input-group mb-3">
-                                            @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <label for="firstname" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                First Name
 
-                                            <input type="file" name="doc" />
+                                            </label>
+                                            <input id="firstname" value=@acc.firstname name="firstname" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                         </div>
-                                    </div>
 
-
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        <div class="input-group mb-3">
+                                            <label for="lastname" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                Last Name
+                                            </label>
+                                            <input id="lastname" value=@acc.lastname name="lastname" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
                                         </div>
-                                    </div>
-                                </form>}
+
+                                        <div class="input-group mb-3">
+                                            <label for="password" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                Password
+                                            </label>
+                                            <input id="password" value=@acc.password name="password" type="password" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <label for="email" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                E-mail
+                                            </label>
+                                            <input id="email" value=@acc.email name="email" type="email" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                        </div>
+
+                                        <div class="input-group mb-3">
+                                            <label for="phone" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                                Phone
+                                            </label>
+                                           
+                                            <input id="phone" value=@acc.phone name="phone" type="number" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="input-group mb-3">
+
+                                                <input type="file" name="doc" />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Update" class="btn btn-default" />
+                                            </div>
+                                        </div>
+
+                                    </form>
+                            }</div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 mx-auto mb-4">
+                            <div class="tm-product-img-dummy mx-auto">
+                                <img src="@Url.Content(Model.image)" height="250px" width="250px" />
+                            </div>
+                            <div class="custom-file mt-3 mb-3">
+                            </div>
                         </div>
+                            
                     </div>
                 </div>
             </div>
@@ -158,3 +157,4 @@
     </div>
 
 </body>
+

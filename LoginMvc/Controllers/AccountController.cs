@@ -37,13 +37,15 @@ namespace LoginMvc.Controllers
             sqlCommand.CommandText =
                 "SELECT * FROM Account WHERE email LIKE'" + account.email+
                 "'and password LIKE '"+account.password+"'";
-            
+
             dr = sqlCommand.ExecuteReader();
 
 
            
             if (dr.Read())
             {
+                Session["UserID"] = dr["id"].ToString();
+
                 Debug.WriteLine("user role2 : " + dr["userrole"].ToString());
                 String val = dr["userrole"].ToString();
 

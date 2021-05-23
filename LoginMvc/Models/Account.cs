@@ -16,7 +16,6 @@ namespace LoginMvc.Models
         public String phone { get; set; }
         public String userrole { get; set; }
 
-        [Display(Name = "image")]
 
         public String image { get; set; }
 

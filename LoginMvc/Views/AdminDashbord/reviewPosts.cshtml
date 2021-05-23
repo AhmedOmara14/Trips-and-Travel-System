@@ -1,8 +1,121 @@
-﻿
+﻿@model List<LoginMvc.Models.tripposts>
+
 @{
     ViewBag.Title = "reviewPosts";
     Layout = "~/Views/AdminDashbord/AdminLayout.cshtml";
 }
 
-<h2>reviewPosts</h2>
+<body class="bg02">
+    <div class="container">
+        <div class="" id="home">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="navbar navbar-expand-xl navbar-light bg-light">
+                            <a class="navbar-brand" href="#">
+                                <i class="fas fa-3x fa-tachometer-alt tm-site-icon"></i>
+                                <h1 class="tm-site-title mb-0">Dashboard</h1>
+                            </a>
+                            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mx-auto">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            Control Users
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="AddUser">Add User</a>
+                                            <a class="dropdown-item" href="ViewAllUser">View All Users</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            Control Posts
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="AddPosts">Add Post</a>
+                                            <a class="dropdown-item" href="ViewAllPosts">View All Posts</a>
+                                            <a class="dropdown-item" href="reviewPosts">Under Revision Posts</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            Settings
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="Profile">Profile</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex" href="LogOut">
+                                            <i class="far fa-user mr-2 tm-logout-icon"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+                @********@
+
+                <table class="table table-light" style="padding: 20px 10px;">
+
+                    <tr style="padding: 10px;">
+                        <th>Id</th>
+                        <th>Agency Name</th>
+                        <th>Trip Title</th>
+                        <th>Trip Description</th>
+                        <th>Trip Date</th>
+                        <th>Trip Destination</th>
+                        <th></th>
+
+                    </tr>
+                    @foreach (var post in Model)
+                    {
+                        <form action="accept" method="post">
+                            <tr style="padding: 10px;">
+                                <td>
+                                    <input size="3px" id="id" value="@post.id" readonly="readonly" name="id" type="text">
+
+                                </td>
+                                <td>
+                                    <input size="10px" id="agencyname" value="@post.agencyname" readonly="readonly" name="agencyname" type="text">
+                                </td>
+                                <td>
+                                    <input size="10px" id="triptitle" value="@post.triptitle" readonly="readonly" name="triptitle" type="text">
+                                </td>
+                                <td><input id="tripdesctiption" value="@post.tripdesctiption" readonly="readonly" name="tripdesctiption" type="text"></td>
+                                <td><input id="tripdate" value="@post.tripdate" name="tripdate" readonly="readonly" type="text"></td>
+                                <td><input id="tripdestination" value="@post.tripdestination" readonly="readonly" name="tripdestination" type="text"></td>
+                                <td><input type="submit" value="Accept" class="btn btn-success btn-sm" readonly="readonly" /></td>
+
+                                <td class="center  sorting_1">
+
+
+                                    <a class="btn btn-danger btn-sm" href="@Url.Action("Deletepost", new { id = post.id })">Refuse</a>
+
+                                </td>
+                            </tr>
+                        </form>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
 

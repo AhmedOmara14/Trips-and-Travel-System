@@ -149,6 +149,7 @@
     <Content Include="assets\js\waypoints.min.js" />
     <Content Include="assets\logo\favicon.png" />
     <Content Include="Content\Images\1621370487951.jpg" />
+    <Content Include="Content\Images\1621533788294.jpg" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\fontawesome.min.css" />
     <Content Include="css\fullcalendar.min.css" />
@@ -236,6 +237,7 @@
     <Content Include="Views\AdminDashbord\AddPosts.cshtml" />
     <Content Include="Views\AdminDashbord\ViewAllPosts.cshtml" />
     <Content Include="Views\AdminDashbord\reviewPosts.cshtml" />
+    <Content Include="Views\AdminDashbord\Profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
