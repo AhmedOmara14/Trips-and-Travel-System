@@ -28,8 +28,6 @@ namespace LoginMvc.Controllers
         [HttpGet]
         public ActionResult ShowAdminDashbord()
         {
-       
-
             return View();
         }
 
@@ -46,6 +44,54 @@ namespace LoginMvc.Controllers
 
             return RedirectToAction("ViewAllUser");
 
+        }
+        
+        public ActionResult Deletepost(int id)
+        {
+            ConnsectionString();
+            sqlConnection.Open();
+
+            String sql = "DELETE FROM tripposts WHERE id= @id";
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+
+
+            return RedirectToAction("ViewAllPosts");
+
+        }
+
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+
+            return View();
+
+
+        }
+        [HttpPost]
+        public ActionResult Edit(tripposts post)
+        {
+            ConnsectionString();
+            sqlConnection.Open();
+            sqlCommand.Connection = sqlConnection;
+            sqlCommand.CommandText =
+           "UPDATE tripposts SET agencyname=@agencyname ,triptitle = @triptitle,tripdesctiption=@tripdesctiption,tripdate=@tripdate,tripdestination=@tripdestination)";
+
+            sqlCommand.Parameters.AddWithValue("@agencyname", post.agencyname);
+            sqlCommand.Parameters.AddWithValue("@triptitle", post.triptitle);
+            sqlCommand.Parameters.AddWithValue("@tripdesctiption", post.tripdesctiption);
+            sqlCommand.Parameters.AddWithValue("@tripdate", post.tripdate);
+            sqlCommand.Parameters.AddWithValue("@tripdestination", post.tripdestination);
+
+           
+            sqlCommand.ExecuteReader();
+            return RedirectToAction("ViewAllPosts");
+                
+              
+
+            
         }
 
 
@@ -65,7 +111,32 @@ namespace LoginMvc.Controllers
         [HttpGet]
         public ActionResult ViewAllPosts()
         {
-            return View();
+            ConnsectionString();
+            
+            String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 1 + "'";
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+
+            var model = new List<tripposts>();
+
+            sqlConnection.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var post = new tripposts();
+        
+                post.id = (int)rdr["id"];
+                post.agencyname = (string)rdr["agencyname"];
+                post.triptitle = (string)rdr["triptitle"];
+                post.tripdesctiption = (string)rdr["tripdesctiption"];
+                post.tripdate = (string)rdr["tripdate"];
+                post.tripdestination = (string)rdr["tripdestination"];
+
+
+                model.Add(post);
+            }
+
+
+            return View(model);
         }
         
         [HttpGet]
