@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 namespace LoginMvc.Controllers
@@ -85,7 +87,54 @@ namespace LoginMvc.Controllers
 
         }
 
-      
+
+        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult register(Account account, HttpPostedFileBase doc)
+        {
+            ConnsectionString();
+
+            if (doc != null)
+            {
+                var filename = Path.GetFileName(doc.FileName);
+                var extension = Path.GetExtension(filename).ToLower();
+                if (extension == ".jpg" || extension == ".png")
+                {
+                    var path = HostingEnvironment.MapPath(Path.Combine("~/Content/Images/", filename));
+                    doc.SaveAs(path);
+
+                    account.image = "~/Content/Images/" + filename;
+
+                    sqlConnection.Open();
+                    sqlCommand.Connection = sqlConnection;
+                    sqlCommand.CommandText =
+                        "INSERT INTO Account VALUES(@firstname,@lastname,@password,@email,@phone,@image,@userrole)";
+
+                    sqlCommand.Parameters.Add("@firstname", account.firstname);
+                    sqlCommand.Parameters.Add("@lastname", account.lastname);
+                    sqlCommand.Parameters.Add("@password", account.password);
+                    sqlCommand.Parameters.Add("@email", account.email);
+                    sqlCommand.Parameters.Add("@phone", account.phone);
+                    sqlCommand.Parameters.Add("@image", account.image);
+                    sqlCommand.Parameters.Add("@userrole", "traveller");
+
+                    sqlCommand.ExecuteReader();
+                    return Redirect("~/showmember/Login");
+                    return View("~/Views/showmember/Login.cshtml");
+                }
+                else
+                {
+                    return Content("<script language='javascript' type='text/javascript'>alert('Document size must be less then 5MB');</script>");
+                    return RedirectToAction("Login");
+                }
+
+            }
+            return Content("<script language='javascript' type='text/javascript'>alert('Photo is required');</script>");
+            return RedirectToAction("Login");
+            return View("Login");
+        }
 
 
     }
