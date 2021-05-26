@@ -203,6 +203,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\addmemberController.cs" />
     <Compile Include="Controllers\AdminDashbordController.cs" />
+    <Compile Include="Controllers\TravellerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,6 +239,8 @@
     <Content Include="Views\AdminDashbord\ViewAllPosts.cshtml" />
     <Content Include="Views\AdminDashbord\reviewPosts.cshtml" />
     <Content Include="Views\AdminDashbord\Profile.cshtml" />
+    <Content Include="Views\Traveller\ProfileOfTraveller.cshtml" />
+    <Content Include="Views\Traveller\TravellerLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

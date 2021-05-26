@@ -26,9 +26,35 @@ namespace LoginMvc.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            ConnsectionString();
+
+            String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 1 + "'";
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+
+            var model = new List<tripposts>();
+
+            sqlConnection.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var post = new tripposts();
+
+                post.id = (int)rdr["id"];
+                post.agencyname = (string)rdr["agencyname"];
+                post.triptitle = (string)rdr["triptitle"];
+                post.tripdesctiption = (string)rdr["tripdesctiption"];
+                post.tripdate = (string)rdr["tripdate"];
+                post.tripdestination = (string)rdr["tripdestination"];
+                post.tripimage = (string)rdr["tripimage"];
+
+
+                model.Add(post);
+            }
+
+
+            return View(model);
         }
-       
+
 
         [HttpPost]
         public ActionResult verify(Account account)
@@ -66,9 +92,8 @@ namespace LoginMvc.Controllers
                 }
                 else if (String.Equals(val, "traveller"))
                 {
-                    return Redirect("~/showmember/Login");
-                    return View("~/Views/showmember/Login.cshtml");
-                    Debug.WriteLine("user role111 : traveller");
+                    return Redirect("~/Traveller/ProfileOfTraveller");
+                    return View("~/Views/Traveller/ProfileOfTraveller.cshtml");
                 }
                 else
                 {
@@ -121,8 +146,7 @@ namespace LoginMvc.Controllers
                     sqlCommand.Parameters.Add("@userrole", "traveller");
 
                     sqlCommand.ExecuteReader();
-                    return Redirect("~/showmember/Login");
-                    return View("~/Views/showmember/Login.cshtml");
+                    return Redirect("Login");
                 }
                 else
                 {
@@ -135,6 +159,42 @@ namespace LoginMvc.Controllers
             return RedirectToAction("Login");
             return View("Login");
         }
+
+
+        
+
+     
+        public ActionResult Login(string searchBy, string search)
+        {
+            ConnsectionString();
+
+            String sql = "SELECT * FROM tripposts WHERE agencyname LIKE'" + search + "'";
+            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+
+            var model = new List<tripposts>();
+
+            sqlConnection.Open();
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var post = new tripposts();
+
+                post.id = (int)rdr["id"];
+                post.agencyname = (string)rdr["agencyname"];
+                post.triptitle = (string)rdr["triptitle"];
+                post.tripdesctiption = (string)rdr["tripdesctiption"];
+                post.tripdate = (string)rdr["tripdate"];
+                post.tripdestination = (string)rdr["tripdestination"];
+                post.tripimage = (string)rdr["tripimage"];
+
+
+                model.Add(post);
+            }
+
+
+            return View(model);
+        }
+
 
 
     }
