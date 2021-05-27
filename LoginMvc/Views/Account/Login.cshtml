@@ -1,5 +1,5 @@
 ﻿
-@model List<LoginMvc.Models.tripposts>
+@model IEnumerable<LoginMvc.Models.tripposts>
 
 @{ ViewBag.Title = "Login";
     Layout = "~/Views/Login/Login.cshtml"; }
@@ -326,12 +326,20 @@
             <h2>
                 special packages
             </h2>
-            @using (@Html.BeginForm("Login", "Account", FormMethod.Get))
-            {
-                @Html.RadioButton("searchBy", "Name", true) <text>Name</text>
-                @Html.RadioButton("searchBy", "Gender") <text>Gender</text><br />
-                @Html.TextBox("search") <input type="submit" value="search" />
-            }
+
+          
+            <form action="Login" class="example">
+                <div class="project-details">
+                    Search By :
+                    @Html.RadioButton("searchBy", "agencyname", true) <text>Agency Name</text>
+                    @Html.RadioButton("searchBy", "tripdestination") <text>Trip Destination</text>
+                    @Html.RadioButton("searchBy", "tripdate") <text>Trip Date</text><br />
+                    @Html.TextBox("search")
+                    <input class="btn btn-primary" type="submit" value="search" name="submit" />
+
+                </div>
+                  </form>
+             
         </div><!--/.gallery-header-->
 
         <div class="packages-content">

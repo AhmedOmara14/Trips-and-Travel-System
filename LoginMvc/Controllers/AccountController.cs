@@ -1,6 +1,7 @@
 ﻿using LoginMvc.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -22,40 +23,7 @@ namespace LoginMvc.Controllers
             sqlConnection.ConnectionString
                 = "data source=localhost; database=TravelDatabase; integrated security = SSPI;";
         }
-        // GET: Account
-        [HttpGet]
-        public ActionResult Login()
-        {
-            ConnsectionString();
-
-            String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 1 + "'";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
-
-            var model = new List<tripposts>();
-
-            sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                var post = new tripposts();
-
-                post.id = (int)rdr["id"];
-                post.agencyname = (string)rdr["agencyname"];
-                post.triptitle = (string)rdr["triptitle"];
-                post.tripdesctiption = (string)rdr["tripdesctiption"];
-                post.tripdate = (string)rdr["tripdate"];
-                post.tripdestination = (string)rdr["tripdestination"];
-                post.tripimage = (string)rdr["tripimage"];
-
-
-                model.Add(post);
-            }
-
-
-            return View(model);
-        }
-
-
+      
         [HttpPost]
         public ActionResult verify(Account account)
         {
@@ -161,21 +129,39 @@ namespace LoginMvc.Controllers
         }
 
 
-        
 
-     
+
+        [HttpGet]
+
         public ActionResult Login(string searchBy, string search)
         {
             ConnsectionString();
+            String sql = "SELECT * FROM [dbo].[tripposts] WHERE active LIKE '" + 1 + "'";
+            if (searchBy == "agencyname")
+            {
+                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [agencyname] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
 
-            String sql = "SELECT * FROM tripposts WHERE agencyname LIKE'" + search + "'";
+            }
+            else if (searchBy == "tripdestination")
+            {
+                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [tripdestination] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
+
+            }
+            else if (searchBy == "tripdate")
+            {
+                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [tripdate] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
+
+            }
             SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sqlDataAdapter.Fill(ds);
 
             var model = new List<tripposts>();
 
             sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            foreach (DataRow rdr in ds.Tables[0].Rows)
             {
                 var post = new tripposts();
 
@@ -191,7 +177,7 @@ namespace LoginMvc.Controllers
                 model.Add(post);
             }
 
-
+            ModelState.Clear();
             return View(model);
         }
 
