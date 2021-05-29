@@ -83,7 +83,7 @@
                         <div class="col-xl-7 col-lg-7 col-md-12">
                            
 
-                            @using (Html.BeginForm("AddUser", "AdminDashbord", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("register", "AdminDashbord", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
                                 <form class="tm-edit-product-form">

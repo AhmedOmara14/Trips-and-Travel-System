@@ -9,35 +9,83 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using TripsandTravelSystem.Controllers;
+using TripsandTravelSystem.Factory;
 
 namespace LoginMvc.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : Controller, Logininterface
     {
-        SqlConnection sqlConnection = new SqlConnection();
         SqlCommand sqlCommand = new SqlCommand();
         SqlDataReader dr;
+        protected Singleton db = Singleton.Instance;
 
-        public void ConnsectionString()
+       
+        [HttpGet]
+
+        public ActionResult Login(string searchBy, string search)
         {
-            sqlConnection.ConnectionString
-                = "data source=localhost; database=TravelDatabase; integrated security = SSPI;";
+            db.ConnsectionString();
+            String sql = "SELECT * FROM [dbo].[tripposts] WHERE active LIKE '" + 1 + "'";
+            if (searchBy == "agencyname")
+            {
+                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [agencyname] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
+
+            }
+            else if (searchBy == "tripdestination")
+            {
+                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [tripdestination] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
+
+            }
+            else if (searchBy == "tripdate")
+            {
+                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [tripdate] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
+
+            }
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sqlDataAdapter.Fill(ds);
+
+            var model = new List<tripposts>();
+
+            db.sqlConnection.Open();
+            foreach (DataRow rdr in ds.Tables[0].Rows)
+            {
+                var post = new tripposts();
+
+                post.id = (int)rdr["id"];
+                post.agencyname = (string)rdr["agencyname"];
+                post.triptitle = (string)rdr["triptitle"];
+                post.tripdesctiption = (string)rdr["tripdesctiption"];
+                post.tripdate = (string)rdr["tripdate"];
+                post.tripdestination = (string)rdr["tripdestination"];
+                post.tripimage = (string)rdr["tripimage"];
+
+
+                model.Add(post);
+            }
+
+            ModelState.Clear();
+            db.sqlConnection.Close();
+
+            return View(model);
         }
-      
         [HttpPost]
         public ActionResult verify(Account account)
         {
-            ConnsectionString();
-            sqlConnection.Open();
-            sqlCommand.Connection = sqlConnection;
+            db.ConnsectionString();
+            db.sqlConnection.Open();
+            sqlCommand.Connection = db.sqlConnection;
             sqlCommand.CommandText =
-                "SELECT * FROM Account WHERE email LIKE'" + account.email+
-                "'and password LIKE '"+account.password+"'";
+                "SELECT * FROM Account WHERE email LIKE'" + account.email +
+                "'and password LIKE '" + account.password + "'";
 
             dr = sqlCommand.ExecuteReader();
 
 
-           
+
             if (dr.Read())
             {
                 Session["UserID"] = dr["id"].ToString();
@@ -48,46 +96,52 @@ namespace LoginMvc.Controllers
 
                 if (String.Equals(val, "admin"))
                 {
+                    db.sqlConnection.Close();
+
                     return Redirect("~/AdminDashbord/ShowAdminDashbord");
                     return View("~/Views/AdminDashbord/ShowAdminDashbord.cshtml");
 
                 }
-                else if (String.Equals(val,"agency"))
+                else if (String.Equals(val, "agency"))
                 {
+                    db.sqlConnection.Close();
+
                     Debug.WriteLine("user role : hamada");
                     return Redirect("~/showmember/Login");
                     return View("~/Views/showmember/Login.cshtml");
                 }
                 else if (String.Equals(val, "traveller"))
                 {
+                    db.sqlConnection.Close();
+
                     return Redirect("~/Traveller/ProfileOfTraveller");
                     return View("~/Views/Traveller/ProfileOfTraveller.cshtml");
                 }
                 else
                 {
-                    return View("fail");
+                    db.sqlConnection.Close();
+
+                    return Redirect("~/showmember/Login");
                 }
-                sqlConnection.Close();
+                db.sqlConnection.Close();
 
                 // return Redirect("~/showmember/Login");
 
             }
             else
             {
-                sqlConnection.Close();
-                return View("fail");
+                db.sqlConnection.Close();
+                return Content("<script language='javascript' type='text/javascript'>alert('Check username or password!!');</script>");
+
+                return Redirect("~/showmember/Login");
+                return View("~/Views/showmember/Login.cshtml");
             }
 
         }
 
-
-        
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult register(Account account, HttpPostedFileBase doc)
         {
-            ConnsectionString();
+            db.ConnsectionString();
 
             if (doc != null)
             {
@@ -100,8 +154,8 @@ namespace LoginMvc.Controllers
 
                     account.image = "~/Content/Images/" + filename;
 
-                    sqlConnection.Open();
-                    sqlCommand.Connection = sqlConnection;
+                    db.sqlConnection.Open();
+                    sqlCommand.Connection = db.sqlConnection;
                     sqlCommand.CommandText =
                         "INSERT INTO Account VALUES(@firstname,@lastname,@password,@email,@phone,@image,@userrole)";
 
@@ -123,64 +177,12 @@ namespace LoginMvc.Controllers
                 }
 
             }
+            db.sqlConnection.Close();
+
             return Content("<script language='javascript' type='text/javascript'>alert('Photo is required');</script>");
             return RedirectToAction("Login");
             return View("Login");
         }
-
-
-
-
-        [HttpGet]
-
-        public ActionResult Login(string searchBy, string search)
-        {
-            ConnsectionString();
-            String sql = "SELECT * FROM [dbo].[tripposts] WHERE active LIKE '" + 1 + "'";
-            if (searchBy == "agencyname")
-            {
-                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [agencyname] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
-
-            }
-            else if (searchBy == "tripdestination")
-            {
-                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [tripdestination] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
-
-            }
-            else if (searchBy == "tripdate")
-            {
-                 sql = "SELECT * FROM [dbo].[tripposts] WHERE [tripdate] LIKE'%" + search + "%' AND active LIKE '" + 1 + "'";
-
-            }
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
-
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            sqlDataAdapter.Fill(ds);
-
-            var model = new List<tripposts>();
-
-            sqlConnection.Open();
-            foreach (DataRow rdr in ds.Tables[0].Rows)
-            {
-                var post = new tripposts();
-
-                post.id = (int)rdr["id"];
-                post.agencyname = (string)rdr["agencyname"];
-                post.triptitle = (string)rdr["triptitle"];
-                post.tripdesctiption = (string)rdr["tripdesctiption"];
-                post.tripdate = (string)rdr["tripdate"];
-                post.tripdestination = (string)rdr["tripdestination"];
-                post.tripimage = (string)rdr["tripimage"];
-
-
-                model.Add(post);
-            }
-
-            ModelState.Clear();
-            return View(model);
-        }
-
 
 
     }

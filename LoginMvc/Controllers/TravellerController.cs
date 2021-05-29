@@ -11,29 +11,24 @@ namespace TripsandTravelSystem.Controllers
     public class TravellerController : Controller
     {
 
-        SqlConnection sqlConnection = new SqlConnection();
         SqlCommand sqlCommand = new SqlCommand();
         SqlDataReader dr;
+        protected Singleton db = Singleton.Instance;
 
-       
-        public void ConnsectionString()
-        {
-            sqlConnection.ConnectionString
-                = "data source=localhost; database=TravelDatabase; integrated security = SSPI;";
-        }
-        // GET: Traveller
+
+
         [HttpGet]
         public ActionResult ProfileOfTraveller()
         {
 
-            ConnsectionString();
+           db.ConnsectionString();
 
             String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 0 + "'";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
             var model = new List<tripposts>();
 
-            sqlConnection.Open();
+            db.sqlConnection.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -50,7 +45,7 @@ namespace TripsandTravelSystem.Controllers
                 model.Add(post);
             }
 
-
+            db.sqlConnection.Close();
             return View(model);
         }
     }

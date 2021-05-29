@@ -72,3 +72,9 @@ E:\11g Source\LoginMvc\LoginMvc\bin\TripsandTravelSystem.dll
 E:\11g Source\LoginMvc\LoginMvc\bin\TripsandTravelSystem.pdb
 E:\11g Source\LoginMvc\LoginMvc\obj\Debug\TripsandTravelSystem.dll
 E:\11g Source\LoginMvc\LoginMvc\obj\Debug\TripsandTravelSystem.pdb
+E:\11g Source\LoginMvc\LoginMvc\bin\Newtonsoft.Json.dll
+E:\11g Source\LoginMvc\LoginMvc\bin\System.Diagnostics.DiagnosticSource.dll
+E:\11g Source\LoginMvc\LoginMvc\bin\System.Net.Http.Formatting.dll
+E:\11g Source\LoginMvc\LoginMvc\bin\Newtonsoft.Json.xml
+E:\11g Source\LoginMvc\LoginMvc\bin\System.Diagnostics.DiagnosticSource.xml
+E:\11g Source\LoginMvc\LoginMvc\bin\System.Net.Http.Formatting.xml

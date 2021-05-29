@@ -8,8 +8,7 @@ namespace LoginMvc.Models
 {
     public class tripposts
     {
-        
-
+       
         public int id { get; set; }
         public String agencyname { get; set; }
         public String triptitle { get; set; }

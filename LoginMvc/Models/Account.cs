@@ -15,8 +15,6 @@ namespace LoginMvc.Models
         public String password { get; set; }
         public String phone { get; set; }
         public String userrole { get; set; }
-
-
         public String image { get; set; }
 
     }

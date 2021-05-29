@@ -10,22 +10,20 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Security;
+using TripsandTravelSystem.Controllers;
+using TripsandTravelSystem.Factory;
 
 namespace LoginMvc.Controllers
 {
    
 
-    public class AdminDashbordController : Controller
+    public class AdminDashbordController : Controller , Logininterface
     {
-        SqlConnection sqlConnection = new SqlConnection();
+        protected Singleton db = Singleton.Instance;
         SqlCommand sqlCommand = new SqlCommand();
         SqlDataReader dr;
 
-        public void ConnsectionString()
-        {
-            sqlConnection.ConnectionString
-                = "data source=localhost; database=TravelDatabase; integrated security = SSPI;";
-        }
+      
         // GET: Account
         [HttpGet]
         public ActionResult ShowAdminDashbord()
@@ -35,29 +33,30 @@ namespace LoginMvc.Controllers
 
         public ActionResult Delete(int id)
         {
-            ConnsectionString();
-            sqlConnection.Open();
+            db.ConnsectionString();
+            db.sqlConnection.Open();
 
             String sql = "DELETE FROM Account WHERE id= @id";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
 
-
+            db.sqlConnection.Close();
             return RedirectToAction("ViewAllUser");
 
         }
         
         public ActionResult Deletepost(int id)
         {
-            ConnsectionString();
-            sqlConnection.Open();
+            db.ConnsectionString();
+            db.sqlConnection.Open();
 
             String sql = "DELETE FROM tripposts WHERE id= @id";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
 
+            db.sqlConnection.Close();
 
             return RedirectToAction("AddPosts");
 
@@ -72,9 +71,9 @@ namespace LoginMvc.Controllers
         [HttpPost]
         public ActionResult Edit(tripposts post)
         {
-            ConnsectionString();
-            sqlConnection.Open();
-            sqlCommand.Connection = sqlConnection;
+            db.ConnsectionString();
+            db.sqlConnection.Open();
+            sqlCommand.Connection = db.sqlConnection;
             Debug.WriteLine("id"+post.id);
             sqlCommand.CommandText =
            "UPDATE tripposts SET agencyname=@agencyname ,triptitle = @triptitle,tripdesctiption=@tripdesctiption,tripdate=@tripdate,tripdestination=@tripdestination WHERE id='"+post.id+"'";
@@ -87,6 +86,7 @@ namespace LoginMvc.Controllers
 
            
             sqlCommand.ExecuteReader();
+            db.sqlConnection.Close();
             return RedirectToAction("ViewAllPosts");
                 
               
@@ -98,21 +98,16 @@ namespace LoginMvc.Controllers
         [HttpPost]
         public ActionResult accept(tripposts post)
         {
-            ConnsectionString();
-            sqlConnection.Open();
-            sqlCommand.Connection = sqlConnection;
+            db.ConnsectionString();
+            db.sqlConnection.Open();
+            sqlCommand.Connection = db.sqlConnection;
             Debug.WriteLine("id" + post.id);
             sqlCommand.CommandText =
            "UPDATE tripposts SET active="+1+" WHERE id='" + post.id + "'";
-/*
-            sqlCommand.Parameters.AddWithValue("@active", post.agencyname);
-            sqlCommand.Parameters.AddWithValue("@triptitle", post.triptitle);
-            sqlCommand.Parameters.AddWithValue("@tripdesctiption", post.tripdesctiption);
-            sqlCommand.Parameters.AddWithValue("@tripdate", post.tripdate);
-            sqlCommand.Parameters.AddWithValue("@tripdestination", post.tripdestination);
-*/
 
             sqlCommand.ExecuteReader();
+            db.sqlConnection.Close();
+
             return RedirectToAction("reviewPosts");
 
 
@@ -138,14 +133,14 @@ namespace LoginMvc.Controllers
         [HttpGet]
         public ActionResult ViewAllPosts()
         {
-            ConnsectionString();
+            db.ConnsectionString();
             
             String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 1 + "'";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
             var model = new List<tripposts>();
 
-            sqlConnection.Open();
+            db.sqlConnection.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -162,20 +157,20 @@ namespace LoginMvc.Controllers
                 model.Add(post);
             }
 
-
+            db.sqlConnection.Close();
             return View(model);
         }
         
         [HttpGet]
         public ActionResult ViewAllUser()
         {
-            ConnsectionString();
+            db.ConnsectionString();
             String sql = "SELECT * FROM Account";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
             var model = new List<Account>();
 
-            sqlConnection.Open();
+            db.sqlConnection.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -193,20 +188,21 @@ namespace LoginMvc.Controllers
                 model.Add(acc);
             }
 
+            db.sqlConnection.Close();
 
             return View(model);
         }
         [HttpGet]
         public ActionResult reviewPosts()
         {
-            ConnsectionString();
+            db.ConnsectionString();
 
             String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 0 + "'";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
             var model = new List<tripposts>();
 
-            sqlConnection.Open();
+            db.sqlConnection.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -223,15 +219,15 @@ namespace LoginMvc.Controllers
                 model.Add(post);
             }
 
+            db.sqlConnection.Close();
 
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddUser(Account account, HttpPostedFileBase doc)
+        
+        public ActionResult register(Account account, HttpPostedFileBase doc)
         {
-            ConnsectionString();
+            db.ConnsectionString();
 
             if (doc != null)
             {
@@ -244,8 +240,8 @@ namespace LoginMvc.Controllers
 
                     account.image = "~/Content/Images/" + filename;
 
-                    sqlConnection.Open();
-                    sqlCommand.Connection = sqlConnection;
+                    db.sqlConnection.Open();
+                    sqlCommand.Connection = db.sqlConnection;
                     sqlCommand.CommandText =
                         "INSERT INTO Account VALUES(@firstname,@lastname,@password,@email,@phone,@image,@userrole)";
 
@@ -257,11 +253,16 @@ namespace LoginMvc.Controllers
                     sqlCommand.Parameters.Add("@image", account.image);
                     sqlCommand.Parameters.Add("@userrole", account.userrole);
 
+
                     sqlCommand.ExecuteReader();
+                    db.sqlConnection.Close();
+
                     return RedirectToAction("ViewAllUser");
                 }
                 else
                 {
+                    db.sqlConnection.Close();
+
                     return Content("<script language='javascript' type='text/javascript'>alert('Document size must be less then 5MB');</script>");
                     return RedirectToAction("AddUser");
                 }
@@ -269,14 +270,17 @@ namespace LoginMvc.Controllers
             }
             return Content("<script language='javascript' type='text/javascript'>alert('Photo is required');</script>");
             return RedirectToAction("AddUser");
+            db.sqlConnection.Close();
+
             return View("AddUser");
         }
 
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
         {
-            ConnsectionString();
+            db.ConnsectionString();
 
             if (doc != null)
             {
@@ -289,8 +293,8 @@ namespace LoginMvc.Controllers
 
                     post.tripimage = "~/Content/Images/" + filename;
 
-                    sqlConnection.Open();
-                    sqlCommand.Connection = sqlConnection;
+                    db.sqlConnection.Open();
+                    sqlCommand.Connection = db.sqlConnection;
                     sqlCommand.CommandText =
                         
                     "INSERT INTO tripposts VALUES(@agencyname,@triptitle,@tripdesctiption,@tripdate,@tripdestination,@tripimage,@active)";
@@ -306,17 +310,23 @@ namespace LoginMvc.Controllers
                     sqlCommand.Parameters.Add("@active",post.active);
 
                     sqlCommand.ExecuteReader();
+                    db.sqlConnection.Close();
+
                     return RedirectToAction("ViewAllPosts");
                 }
                 else
                 {
                     return Content("<script language='javascript' type='text/javascript'>alert('Document size must be less then 5MB');</script>");
+                    db.sqlConnection.Close();
+
                     return RedirectToAction("AddPosts");
                 }
 
             }
             return Content("<script language='javascript' type='text/javascript'>alert('Photo is required');</script>");
             return RedirectToAction("AddPosts");
+            db.sqlConnection.Close();
+
             return View("AddPosts");
         }
 
@@ -324,7 +334,7 @@ namespace LoginMvc.Controllers
         [HttpGet]
         public ActionResult Profile()
         {
-            ConnsectionString();
+            db.ConnsectionString();
             string value="";
             foreach (string key in Session.Contents)
             {
@@ -332,11 +342,11 @@ namespace LoginMvc.Controllers
                 Debug.WriteLine(value);
             }
             String sql = "SELECT * FROM Account WHERE id='"+value+"'";
-            SqlCommand cmd = new SqlCommand(sql, sqlConnection);
+            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
             var model = new Account();
             String img;
-            sqlConnection.Open();
+            db.sqlConnection.Open();
             SqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -354,6 +364,7 @@ namespace LoginMvc.Controllers
                 model =acc;
             }
 
+            db.sqlConnection.Close();
 
             return View(model);
         }
@@ -363,7 +374,7 @@ namespace LoginMvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UpdatePro(Account account, HttpPostedFileBase doc)
         {
-            ConnsectionString();
+            db.ConnsectionString();
 
             if (doc != null)
             {
@@ -376,8 +387,8 @@ namespace LoginMvc.Controllers
 
                     account.image = "~/Content/Images/" + filename;
 
-                    sqlConnection.Open();
-                    sqlCommand.Connection = sqlConnection;
+                    db.sqlConnection.Open();
+                    sqlCommand.Connection = db.sqlConnection;
                     string value = "";
                     foreach (string key in Session.Contents)
                     {
@@ -396,20 +407,27 @@ namespace LoginMvc.Controllers
                     sqlCommand.Parameters.AddWithValue("@image", account.image);
 
                     sqlCommand.ExecuteReader();
+                    db.sqlConnection.Close();
+
                     return RedirectToAction("Profile");
                 }
                 else
                 {
                     return Content("<script language='javascript' type='text/javascript'>alert('Document size must be less then 5MB');</script>");
+                    db.sqlConnection.Close();
+
                     return RedirectToAction("Profile");
                 }
 
             }
             return Content("<script language='javascript' type='text/javascript'>alert('Photo is required');</script>");
             return RedirectToAction("Profile");
+            db.sqlConnection.Close();
+
             return View("Profile");
 
         }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
