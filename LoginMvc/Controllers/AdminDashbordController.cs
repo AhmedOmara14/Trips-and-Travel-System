@@ -21,7 +21,6 @@ namespace LoginMvc.Controllers
     {
         protected Singleton db = Singleton.Instance;
         SqlCommand sqlCommand = new SqlCommand();
-        SqlDataReader dr;
 
       
         // GET: Account
@@ -62,21 +61,15 @@ namespace LoginMvc.Controllers
 
         }
 
-
-        [HttpGet]
-        public ActionResult Edit()
-        {
-            return View();
-        }
         [HttpPost]
         public ActionResult Edit(tripposts post)
         {
             db.ConnsectionString();
             db.sqlConnection.Open();
             sqlCommand.Connection = db.sqlConnection;
-            Debug.WriteLine("id"+post.id);
+            Debug.WriteLine("id" + post.id);
             sqlCommand.CommandText =
-           "UPDATE tripposts SET agencyname=@agencyname ,triptitle = @triptitle,tripdesctiption=@tripdesctiption,tripdate=@tripdate,tripdestination=@tripdestination WHERE id='"+post.id+"'";
+           "UPDATE tripposts SET agencyname=@agencyname ,triptitle = @triptitle,tripdesctiption=@tripdesctiption,tripdate=@tripdate,tripdestination=@tripdestination WHERE id='" + post.id + "'";
 
             sqlCommand.Parameters.AddWithValue("@agencyname", post.agencyname);
             sqlCommand.Parameters.AddWithValue("@triptitle", post.triptitle);
@@ -84,15 +77,22 @@ namespace LoginMvc.Controllers
             sqlCommand.Parameters.AddWithValue("@tripdate", post.tripdate);
             sqlCommand.Parameters.AddWithValue("@tripdestination", post.tripdestination);
 
-           
+
             sqlCommand.ExecuteReader();
             db.sqlConnection.Close();
             return RedirectToAction("ViewAllPosts");
-                
-              
 
-            
+
+
+
         }
+
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+      
 
 
         [HttpPost]
@@ -276,8 +276,7 @@ namespace LoginMvc.Controllers
         }
 
       
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+ 
         public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
         {
             db.ConnsectionString();
@@ -354,7 +353,7 @@ namespace LoginMvc.Controllers
 
                 acc.id = (int)rdr["id"];
                 acc.firstname = (string)rdr["firstname"];
-                acc.lastname = (string)rdr["lastname"];
+                acc.lastname = (Object)rdr["lastname"];
                 acc.password = (string)rdr["password"];
                 acc.email = (string)rdr["email"];
                 acc.phone = (string)rdr["phone"];
@@ -427,6 +426,7 @@ namespace LoginMvc.Controllers
             return View("Profile");
 
         }
+
 
         public ActionResult LogOut()
         {

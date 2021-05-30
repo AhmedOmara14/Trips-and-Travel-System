@@ -11,11 +11,25 @@ namespace TripsandTravelSystem.Factory
 {
     interface Logininterface
     {
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         ActionResult register(Account account, HttpPostedFileBase doc);
-        
+
+
+
+        [HttpGet]
+        ActionResult Profile();
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        ActionResult UpdatePro(Account account, HttpPostedFileBase doc);
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        ActionResult AddPosts(tripposts post, HttpPostedFileBase doc);
 
     }
 }

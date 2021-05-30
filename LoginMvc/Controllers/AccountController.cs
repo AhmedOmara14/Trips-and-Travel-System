@@ -22,7 +22,6 @@ namespace LoginMvc.Controllers
 
        
         [HttpGet]
-
         public ActionResult Login(string searchBy, string search)
         {
             db.ConnsectionString();
@@ -72,6 +71,7 @@ namespace LoginMvc.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult verify(Account account)
         {
@@ -106,9 +106,8 @@ namespace LoginMvc.Controllers
                 {
                     db.sqlConnection.Close();
 
-                    Debug.WriteLine("user role : hamada");
-                    return Redirect("~/showmember/Login");
-                    return View("~/Views/showmember/Login.cshtml");
+                    return Redirect("~/Agency/Profile");
+                    return View("~/Views/Agency/Profile.cshtml");
                 }
                 else if (String.Equals(val, "traveller"))
                 {
@@ -184,6 +183,19 @@ namespace LoginMvc.Controllers
             return View("Login");
         }
 
+        ActionResult Logininterface.Profile()
+        {
+            throw new NotImplementedException();
+        }
 
+        public ActionResult UpdatePro(Account account, HttpPostedFileBase doc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

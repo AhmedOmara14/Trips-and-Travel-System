@@ -1,0 +1,185 @@
+﻿@model LoginMvc.Models.tripposts
+
+@{
+    ViewBag.Title = "createnewpost";
+    Layout = "~/Views/Agency/AgencyLayout.cshtml";
+}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">TourNest</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
+                <a class="nav-link" href="Profile">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span class="nav-link-text">Profile</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="createnewpost">
+                <a class="nav-link" href="createnewpost">
+                    <i class="fa fa-fw fa-area-chart"></i>
+                    <span class="nav-link-text">Create New Post</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="myposts">
+                <a class="nav-link" href="myposts">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">My Posts</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Receivedquestions">
+                <a class="nav-link" href="Receivedquestions">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Received questions</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-fw fa-sign-out"></i>Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+    <div class="row tm-mt-big">
+        <div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
+            <div class="bg-white tm-block">
+                <div class="row" style="
+    width: 1100px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+    ">
+                    <div class="col-12">
+                        <h2 class="tm-block-title d-inline-block">Add Post Of Trip</h2>
+                    </div>
+                </div>
+                <div class="row mt-4 tm-edit-product-row" style="
+    width: 2000px;
+    margin-left: 15px;
+    margin-right: 15px;
+">
+                    <div class="col-xl-7 col-lg-7 col-md-12">
+
+
+                        @using (Html.BeginForm("AddPosts", "Agency", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <form class="tm-edit-product-form">
+                                <div class="input-group mb-3">
+                                    <label for="agencyname" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Agency Name
+
+                                    </label>
+                                    <input id="agencyname"required name="agencyname" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label for="triptitle" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Trip Title
+                                    </label>
+                                    <input id="triptitle"required name="triptitle" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label for="tripdesctiption" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Trip Description
+                                    </label>
+                                    <textarea id="tripdesctiption"required name="tripdesctiption" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7"></textarea>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label for="tripdate" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Trip Date
+                                    </label>
+                                    <input class="form-control"required type="datetime-local" name="tripdate" id="tripdate">
+
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <label for="tripdestination" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                                        Trip Destination
+                                    </label>
+                                    <input id="tripdestination" required name="tripdestination" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="input-group mb-xl-3">
+                                        @Html.LabelFor(model => model.tripimage, htmlAttributes: new { @class = "control-label col-md" })
+
+                                        <input style="
+    width: 758px;
+" type="file" required name="doc" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-12 text-center" style="margin-top:20px">
+                                        <input type="submit" value="Create" class="btn btn-default btn-lg btn-block" />
+                                    </div>
+                                </div>
+                            </form>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@*Footer
+*@
+<div class="content-wrapper">
+
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small></small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="LogOut">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

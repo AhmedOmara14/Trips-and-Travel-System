@@ -21,32 +21,42 @@ namespace TripsandTravelSystem.Controllers
         public ActionResult ProfileOfTraveller()
         {
 
-           db.ConnsectionString();
+            return View();
+        }
 
-            String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 0 + "'";
-            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
-
-            var model = new List<tripposts>();
+     
+        [HttpPost]
+        public ActionResult ProfileOfTraveller(question post)
+        {
+            string value = "";
+            foreach (string key in Session.Contents)
+            {
+                value = Session[key].ToString();
+            }
+            db.ConnsectionString();
 
             db.sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                var post = new tripposts();
+            sqlCommand.Connection = db.sqlConnection;
+            sqlCommand.CommandText =
 
-                post.id = (int)rdr["id"];
-                post.agencyname = (string)rdr["agencyname"];
-                post.triptitle = (string)rdr["triptitle"];
-                post.tripdesctiption = (string)rdr["tripdesctiption"];
-                post.tripdate = (string)rdr["tripdate"];
-                post.tripdestination = (string)rdr["tripdestination"];
+                 "INSERT INTO question VALUES(@travellerId,@que,@answer,@active)";
+
+                    post.travellerId =int.Parse(value);
+                    post.active = 0; 
+                    sqlCommand.Parameters.Add("@travellerId", post.travellerId);
+                    sqlCommand.Parameters.Add("@que", post.que);
+                    sqlCommand.Parameters.Add("@answer", "");
+                    sqlCommand.Parameters.Add("@active", post.active);
 
 
-                model.Add(post);
-            }
-
+            sqlCommand.ExecuteReader();
             db.sqlConnection.Close();
-            return View(model);
+
+           return View();
         }
+                
+           
+        
+
     }
 }
