@@ -156,21 +156,24 @@ namespace LoginMvc.Controllers
                     db.sqlConnection.Open();
                     sqlCommand.Connection = db.sqlConnection;
                     sqlCommand.CommandText =
-                        "INSERT INTO Account VALUES(@firstname,@lastname,@password,@email,@phone,@image,@userrole)";
+                        "INSERT INTO Account VALUES(@firstname,@password,@email,@phone,@image,@userrole,@lastname)";
 
                     sqlCommand.Parameters.Add("@firstname", account.firstname);
-                    sqlCommand.Parameters.Add("@lastname", account.lastname);
                     sqlCommand.Parameters.Add("@password", account.password);
                     sqlCommand.Parameters.Add("@email", account.email);
                     sqlCommand.Parameters.Add("@phone", account.phone);
                     sqlCommand.Parameters.Add("@image", account.image);
                     sqlCommand.Parameters.Add("@userrole", "traveller");
+                    sqlCommand.Parameters.Add("@lastname", account.lastname);
 
                     sqlCommand.ExecuteReader();
+                    db.sqlConnection.Close();
+
                     return Redirect("Login");
                 }
                 else
                 {
+                    db.sqlConnection.Close();
                     return Content("<script language='javascript' type='text/javascript'>alert('Document size must be less then 5MB');</script>");
                     return RedirectToAction("Login");
                 }

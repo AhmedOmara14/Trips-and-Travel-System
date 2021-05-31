@@ -41,7 +41,7 @@ namespace TripsandTravelSystem.Controllers
 
                 acc.id = (int)rdr["id"];
                 acc.firstname = (string)rdr["firstname"];
-                acc.lastname = (object)rdr["lastname"];
+                acc.lastname = (string)rdr["lastname"];
                 acc.password = (string)rdr["password"];
                 acc.email = (string)rdr["email"];
                 acc.phone = (string)rdr["phone"];

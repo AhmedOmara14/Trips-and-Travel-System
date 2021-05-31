@@ -10,7 +10,7 @@ namespace LoginMvc.Models
     {
         public int id { get; set; }
         public String firstname { get; set; }
-        public Object lastname { get; set; }
+        public String lastname { get; set; }
         public String email { get; set; }
         public String password { get; set; }
         public String phone { get; set; }

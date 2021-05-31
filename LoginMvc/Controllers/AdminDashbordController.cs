@@ -67,7 +67,6 @@ namespace LoginMvc.Controllers
             db.ConnsectionString();
             db.sqlConnection.Open();
             sqlCommand.Connection = db.sqlConnection;
-            Debug.WriteLine("id" + post.id);
             sqlCommand.CommandText =
            "UPDATE tripposts SET agencyname=@agencyname ,triptitle = @triptitle,tripdesctiption=@tripdesctiption,tripdate=@tripdate,tripdestination=@tripdestination WHERE id='" + post.id + "'";
 
@@ -99,7 +98,6 @@ namespace LoginMvc.Controllers
             db.ConnsectionString();
             db.sqlConnection.Open();
             sqlCommand.Connection = db.sqlConnection;
-            Debug.WriteLine("id" + post.id);
             sqlCommand.CommandText =
            "UPDATE tripposts SET active="+1+" WHERE id='" + post.id + "'";
 
@@ -330,7 +328,6 @@ namespace LoginMvc.Controllers
             foreach (string key in Session.Contents)
             {
                 value =Session[key].ToString();
-                Debug.WriteLine(value);
             }
             String sql = "SELECT * FROM Account WHERE id='"+value+"'";
             SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
@@ -345,7 +342,7 @@ namespace LoginMvc.Controllers
 
                 acc.id = (int)rdr["id"];
                 acc.firstname = (string)rdr["firstname"];
-                acc.lastname = (Object)rdr["lastname"];
+                acc.lastname = (string)rdr["lastname"];
                 acc.password = (string)rdr["password"];
                 acc.email = (string)rdr["email"];
                 acc.phone = (string)rdr["phone"];
