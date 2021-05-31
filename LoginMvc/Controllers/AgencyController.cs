@@ -245,8 +245,7 @@ namespace TripsandTravelSystem.Controllers
             return RedirectToAction("myposts");
 
         }
-        
-
+       
         [HttpPost]
         public ActionResult reply(question post)
         {

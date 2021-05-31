@@ -93,8 +93,6 @@ namespace LoginMvc.Controllers
             return View();
         }
       
-
-
         [HttpPost]
         public ActionResult accept(tripposts post)
         {
@@ -114,14 +112,11 @@ namespace LoginMvc.Controllers
 
 
         }
-
-
         [HttpGet]
         public ActionResult AddUser()
         {
             return View();
         }
-
         
         [HttpGet]
         public ActionResult AddPosts()
@@ -274,9 +269,6 @@ namespace LoginMvc.Controllers
 
             return View("AddUser");
         }
-
-      
- 
         public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
         {
             db.ConnsectionString();
