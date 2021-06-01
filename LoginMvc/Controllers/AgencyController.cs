@@ -126,7 +126,6 @@ namespace TripsandTravelSystem.Controllers
         public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
         {
             db.ConnsectionString();
-
             if (doc != null)
             {
                 var filename = Path.GetFileName(doc.FileName);

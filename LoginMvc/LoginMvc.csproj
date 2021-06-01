@@ -282,6 +282,7 @@
     <Compile Include="Controllers\AdminDashbordController.cs" />
     <Compile Include="Controllers\AgencyController.cs" />
     <Compile Include="Factory\Logininterface.cs" />
+    <Compile Include="Models\cart.cs" />
     <Compile Include="Models\question.cs" />
     <Compile Include="Models\Singleton.cs" />
     <Compile Include="Controllers\TravellerController.cs" />
@@ -390,7 +391,9 @@
     <Content Include="Views\Agency\createnewpost.cshtml" />
     <Content Include="Views\Agency\myposts.cshtml" />
     <Content Include="Views\Agency\Receivedquestions.cshtml" />
-    <Content Include="Views\Agency\recque.cshtml" />
+    <Content Include="Views\Traveller\TravellerDashbord.cshtml" />
+    <Content Include="Views\Traveller\showfavoriteposts.cshtml" />
+    <Content Include="Views\Traveller\answersofquestions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
