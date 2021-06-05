@@ -16,8 +16,6 @@ namespace TripsandTravelSystem.Factory
         [ValidateAntiForgeryToken]
         ActionResult register(Account account, HttpPostedFileBase doc);
 
-
-
         [HttpGet]
         ActionResult Profile();
 
