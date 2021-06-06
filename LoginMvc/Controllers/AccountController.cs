@@ -20,7 +20,6 @@ namespace LoginMvc.Controllers
         SqlDataReader dr;
         protected Singleton db = Singleton.Instance;
 
-       
         [HttpGet]
         public ActionResult Login(string searchBy, string search)
         {

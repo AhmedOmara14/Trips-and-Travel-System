@@ -11,8 +11,9 @@ namespace TripsandTravelSystem.Controllers
       public SqlConnection sqlConnection = new SqlConnection();
 
        
-      private Singleton()
+        private Singleton()
         {
+
         }
         private static readonly Lazy<Singleton> lazy = new Lazy<Singleton>(() => new Singleton());
         public static Singleton Instance

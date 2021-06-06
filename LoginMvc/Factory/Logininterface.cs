@@ -19,8 +19,6 @@ namespace TripsandTravelSystem.Factory
         [HttpGet]
         ActionResult Profile();
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         ActionResult UpdatePro(Account account, HttpPostedFileBase doc);
