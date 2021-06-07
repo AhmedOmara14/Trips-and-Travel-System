@@ -9,58 +9,80 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Security;
-using TripsandTravelSystem.Factory;
 
 namespace TripsandTravelSystem.Controllers
 {
-    public class AgencyController : Controller, Logininterface
+    public class AgencyController : Controller
     {
         protected Singleton db = Singleton.Instance;
         SqlCommand sqlCommand = new SqlCommand();
 
-       
-        public ActionResult Profile()
+        public int getSessionId()
         {
-            db.ConnsectionString();
-            string value = "";
+            int value = 0;
             foreach (string key in Session.Contents)
             {
-                value = Session[key].ToString();
-                Debug.WriteLine("is is :"+value);
+                value = int.Parse(Session[key].ToString());
             }
-            String sql = "SELECT * FROM Account WHERE id='" + value + "'";
-            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
+            return value;
 
-            var model = new Account();
-            String img;
-            db.sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+        }
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            if (getSessionId() == 0)
             {
-                var acc = new Account();
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
 
-                acc.id = (int)rdr["id"];
-                acc.firstname = (string)rdr["firstname"];
-                acc.lastname = (string)rdr["lastname"];
-                acc.password = (string)rdr["password"];
-                acc.email = (string)rdr["email"];
-                acc.phone = (string)rdr["phone"];
-                acc.image = (string)rdr["image"];
-                acc.userrole = (string)rdr["userrole"];
-
-                model = acc;
             }
+            else
+            {
 
-            db.sqlConnection.Close();
+                db.ConnsectionString();
+                string value = "";
+                foreach (string key in Session.Contents)
+                {
+                    value = Session[key].ToString();
+                    Debug.WriteLine("is is :" + value);
+                }
+                String sql = "SELECT * FROM Account WHERE id='" + value + "'";
+                SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
-            return View(model);
+                var model = new Account();
+                String img;
+                db.sqlConnection.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var acc = new Account();
+
+                    acc.id = (int)rdr["id"];
+                    acc.firstname = (string)rdr["firstname"];
+                    acc.lastname = (string)rdr["lastname"];
+                    acc.password = (string)rdr["password"];
+                    acc.email = (string)rdr["email"];
+                    acc.phone = (string)rdr["phone"];
+                    acc.image = (string)rdr["image"];
+                    acc.userrole = (string)rdr["userrole"];
+
+                    model = acc;
+                }
+
+                db.sqlConnection.Close();
+
+                return View(model);
+            }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult register(Account account, HttpPostedFileBase doc)
         {
             throw new NotImplementedException();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdatePro(Account account, HttpPostedFileBase doc)
         {
             db.ConnsectionString();
@@ -120,9 +142,21 @@ namespace TripsandTravelSystem.Controllers
         [HttpGet]
         public ActionResult createnewpost()
         {
-            return View();
+            if (getSessionId() == 0)
+            {
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
+
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
         {
             db.ConnsectionString();
@@ -178,32 +212,42 @@ namespace TripsandTravelSystem.Controllers
         [HttpGet]
         public ActionResult myposts()
         {
-            db.ConnsectionString();
-
-            String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 1 + "'";
-            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
-
-            var model = new List<tripposts>();
-
-            db.sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            if (getSessionId() == 0)
             {
-                var post = new tripposts();
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
 
-                post.id = (int)rdr["id"];
-                post.agencyname = (string)rdr["agencyname"];
-                post.triptitle = (string)rdr["triptitle"];
-                post.tripdesctiption = (string)rdr["tripdesctiption"];
-                post.tripdate = (string)rdr["tripdate"];
-                post.tripdestination = (string)rdr["tripdestination"];
-
-
-                model.Add(post);
             }
+            else
+            {
 
-            db.sqlConnection.Close();
-            return View(model);
+
+                db.ConnsectionString();
+
+                String sql = "SELECT * FROM tripposts WHERE active LIKE'" + 1 + "'";
+                SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
+
+                var model = new List<tripposts>();
+
+                db.sqlConnection.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var post = new tripposts();
+
+                    post.id = (int)rdr["id"];
+                    post.agencyname = (string)rdr["agencyname"];
+                    post.triptitle = (string)rdr["triptitle"];
+                    post.tripdesctiption = (string)rdr["tripdesctiption"];
+                    post.tripdate = (string)rdr["tripdate"];
+                    post.tripdestination = (string)rdr["tripdestination"];
+
+
+                    model.Add(post);
+                }
+
+                db.sqlConnection.Close();
+                return View(model);
+            }
         }
 
         public ActionResult Deletepost(int id)
@@ -275,30 +319,38 @@ namespace TripsandTravelSystem.Controllers
         [HttpGet]
         public ActionResult Receivedquestions()
         {
-
-            db.ConnsectionString();
-
-            String sql = "SELECT * FROM question WHERE active LIKE'" + 0 + "'";
-            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
-
-            var model = new List<question>();
-
-            db.sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            if (getSessionId() == 0)
             {
-                var post = new question();
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
 
-                post.id = (int)rdr["id"];
-                post.que = (string)rdr["que"];
-                post.answer = (string)rdr["answer"];
-
-
-                model.Add(post);
             }
+            else
+            {
 
-            db.sqlConnection.Close();
-            return View(model);
+                db.ConnsectionString();
+
+                String sql = "SELECT * FROM question WHERE active LIKE'" + 0 + "'";
+                SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
+
+                var model = new List<question>();
+
+                db.sqlConnection.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var post = new question();
+
+                    post.id = (int)rdr["id"];
+                    post.que = (string)rdr["que"];
+                    post.answer = (string)rdr["answer"];
+
+
+                    model.Add(post);
+                }
+
+                db.sqlConnection.Close();
+                return View(model);
+            }
         }
 
 

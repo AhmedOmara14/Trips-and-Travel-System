@@ -25,8 +25,12 @@ namespace TripsandTravelSystem.Controllers
         }
         public void ConnsectionString()
         {
+
             sqlConnection.ConnectionString
                 = "data source=localhost; database=TravelDatabase; integrated security = SSPI;";
         }
-    }
+        
+   
+
+}
 }

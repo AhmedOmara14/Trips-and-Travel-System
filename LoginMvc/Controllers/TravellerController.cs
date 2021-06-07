@@ -21,12 +21,27 @@ namespace TripsandTravelSystem.Controllers
         protected Singleton db = Singleton.Instance;
         List<tripposts> model2 = new List<tripposts>();
 
+        public int getSessionId()
+        {
+            int value = 0;
+            foreach (string key in Session.Contents)
+            {
+                value = int.Parse(Session[key].ToString());
+            }
+            return value;
 
+        }
 
         [HttpGet]
         public ActionResult ProfileOfTraveller(string searchBy, string search)
         {
-          
+            if (getSessionId() == 0)
+            {
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
+
+            }
+            else
+            {
                 db.ConnsectionString();
                 String sql = "SELECT * FROM [dbo].[tripposts] WHERE active LIKE '" + 1 + "'";
                 if (searchBy == "agencyname")
@@ -74,8 +89,8 @@ namespace TripsandTravelSystem.Controllers
                 db.sqlConnection.Close();
 
                 return View(model);
-            
 
+            }
         }
 
         [HttpPost]
@@ -139,78 +154,101 @@ namespace TripsandTravelSystem.Controllers
         [HttpGet]
         public ActionResult TravellerDashbord()
         {
-            db.ConnsectionString();
-            string value = "";
-            foreach (string key in Session.Contents)
+            if (getSessionId() == 0)
             {
-                value = Session[key].ToString();
-            }
-            String sql = "SELECT * FROM Account WHERE id='" + value + "'";
-            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
 
-            var model = new Account();
-            String img;
-            db.sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            }
+            else
             {
-                var acc = new Account();
+                db.ConnsectionString();
+                string value = "";
+                foreach (string key in Session.Contents)
+                {
+                    value = Session[key].ToString();
+                }
+                String sql = "SELECT * FROM Account WHERE id='" + value + "'";
+                SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
 
-                acc.id = (int)rdr["id"];
-                acc.firstname = (string)rdr["firstname"];
-                acc.lastname = (string)rdr["lastname"];
-                acc.password = (string)rdr["password"];
-                acc.email = (string)rdr["email"];
-                acc.phone = (string)rdr["phone"];
-                acc.image = (string)rdr["image"];
-                acc.userrole = (string)rdr["userrole"];
+                var model = new Account();
+                String img;
+                db.sqlConnection.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var acc = new Account();
 
-                model = acc;
+                    acc.id = (int)rdr["id"];
+                    acc.firstname = (string)rdr["firstname"];
+                    acc.lastname = (string)rdr["lastname"];
+                    acc.password = (string)rdr["password"];
+                    acc.email = (string)rdr["email"];
+                    acc.phone = (string)rdr["phone"];
+                    acc.image = (string)rdr["image"];
+                    acc.userrole = (string)rdr["userrole"];
+
+                    model = acc;
+                }
+
+                db.sqlConnection.Close();
+
+                return View(model);
             }
-
-            db.sqlConnection.Close();
-
-            return View(model);
         }
 
         
         [HttpGet]
         public ActionResult answersofquestions()
         {
-            db.ConnsectionString();
-
-            String sql = "SELECT * FROM question WHERE active LIKE'" + 1 + "'";
-            SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
-
-            var model = new List<question>();
-
-            db.sqlConnection.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            if (getSessionId() == 0)
             {
-                var post = new question();
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
 
-                post.id = (int)rdr["id"];
-                post.que = (string)rdr["que"];
-                post.answer = (string)rdr["answer"];
-
-
-                model.Add(post);
             }
+            else
+            {
+                db.ConnsectionString();
 
-            db.sqlConnection.Close();
-            return View(model);
+                String sql = "SELECT * FROM question WHERE active LIKE'" + 1 + "'"+ " and travellerId LIKE'" + getSessionId() + "'";
+                SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
+
+                var model = new List<question>();
+
+                db.sqlConnection.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var post = new question();
+
+                    post.id = (int)rdr["id"];
+                    post.que = (string)rdr["que"];
+                    post.answer = (string)rdr["answer"];
+
+
+                    model.Add(post);
+                }
+
+                db.sqlConnection.Close();
+                return View(model);
+            }
         }
 
         [HttpGet]
         public ActionResult showfavoriteposts()
         {
-            string value = "";
-            foreach (string key in Session.Contents)
+            if (getSessionId() == 0)
             {
-                value = Session[key].ToString();
+                return Content("<script language='javascript' type='text/javascript'>alert('u Must Login !!');</script>");
+
             }
-            db.ConnsectionString();
+            else
+            {
+                string value = "";
+                foreach (string key in Session.Contents)
+                {
+                    value = Session[key].ToString();
+                }
+                db.ConnsectionString();
 
                 String sql = "SELECT * FROM tripposts INNER JOIN Cart ON cart.postId = tripposts.id WHERE cart.travellerId ='" + int.Parse(value) + "'";
                 SqlCommand cmd = new SqlCommand(sql, db.sqlConnection);
@@ -236,6 +274,7 @@ namespace TripsandTravelSystem.Controllers
 
                 db.sqlConnection.Close();
                 return View(model);
+            }
             
         }
 
@@ -305,6 +344,7 @@ namespace TripsandTravelSystem.Controllers
             return View("~/Views/Traveller/TravellerDashbord.cshtml");
 
         }
+
 
 
     }

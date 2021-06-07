@@ -50,7 +50,9 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -60,6 +62,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
@@ -68,6 +71,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +99,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -281,8 +286,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminDashbordController.cs" />
     <Compile Include="Controllers\AgencyController.cs" />
-    <Compile Include="Factory\Logininterface.cs" />
     <Compile Include="Models\cart.cs" />
+    <Compile Include="Models\Likes.cs" />
     <Compile Include="Models\question.cs" />
     <Compile Include="Models\Singleton.cs" />
     <Compile Include="Controllers\TravellerController.cs" />
@@ -309,10 +314,7 @@
     <None Include="packages.config" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\fail.cshtml" />
     <Content Include="Views\Create\Index.cshtml" />
-    <Content Include="Views\go.cshtml" />
-    <Content Include="Views\addmemberform.cshtml" />
     <Content Include="Views\AdminDashbord\ShowAdminDashbord.cshtml" />
     <Content Include="Views\AdminDashbord\AdminLayout.cshtml" />
     <Content Include="Views\AdminDashbord\AddUser.cshtml" />

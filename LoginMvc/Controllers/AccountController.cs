@@ -10,16 +10,16 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using TripsandTravelSystem.Controllers;
-using TripsandTravelSystem.Factory;
 
 namespace LoginMvc.Controllers
 {
-    public class AccountController : Controller, Logininterface
+    public class AccountController : Controller
     {
         SqlCommand sqlCommand = new SqlCommand();
         SqlDataReader dr;
         protected Singleton db = Singleton.Instance;
 
+        
         [HttpGet]
         public ActionResult Login(string searchBy, string search)
         {
@@ -60,6 +60,11 @@ namespace LoginMvc.Controllers
                 post.tripdate = (string)rdr["tripdate"];
                 post.tripdestination = (string)rdr["tripdestination"];
                 post.tripimage = (string)rdr["tripimage"];
+
+                db.sqlConnection.Close();
+
+                post.numOflikes = getlikes(post.id);
+                post.numOfdislikes = getdislikes(post.id);
 
 
                 model.Add(post);
@@ -137,6 +142,8 @@ namespace LoginMvc.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult register(Account account, HttpPostedFileBase doc)
         {
             db.ConnsectionString();
@@ -185,19 +192,40 @@ namespace LoginMvc.Controllers
             return View("Login");
         }
 
-        ActionResult Logininterface.Profile()
+        [HttpGet]
+        public int getlikes(int id)
         {
-            throw new NotImplementedException();
+            db.ConnsectionString();
+            db.sqlConnection.Open();
+            sqlCommand.Connection = db.sqlConnection;
+            sqlCommand.CommandText =
+                "SELECT SUM(activelike) FROM Likes WHERE postsId = '" + id +"'";
+
+
+            int sum = (Int32)sqlCommand.ExecuteScalar();
+
+            db.sqlConnection.Close();
+
+            return sum;
         }
 
-        public ActionResult UpdatePro(Account account, HttpPostedFileBase doc)
+        [HttpGet]
+        public int getdislikes(int id)
         {
-            throw new NotImplementedException();
+            db.ConnsectionString();
+            db.sqlConnection.Open();
+            sqlCommand.Connection = db.sqlConnection;
+            sqlCommand.CommandText =
+                "SELECT SUM(activedislike) FROM Likes WHERE postsId = '" + id + "'";
+
+
+            int sum = (Int32)sqlCommand.ExecuteScalar();
+
+            db.sqlConnection.Close();
+
+            return sum;
         }
 
-        public ActionResult AddPosts(tripposts post, HttpPostedFileBase doc)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

@@ -21,5 +21,9 @@ namespace LoginMvc.Models
 
         public String tripimage { get; set; }
 
+
+        public int numOflikes { get; set; }
+        public int numOfdislikes { get; set; }
+
     }
 }
